@@ -99,7 +99,7 @@ class Storage:
 def tensor(x, device):
     if isinstance(x, torch.Tensor):
         return x
-    x = np.asarray(x, dtype=np.float)
+    x = np.asarray(x, dtype=float)
     x = torch.tensor(x, device=device, dtype=torch.float32)
     return x
   

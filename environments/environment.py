@@ -69,13 +69,23 @@ class Environment:
         raise NotImplementedError
 
     def _close_connection(self):
-        self.connection.close()
-        del traci.main._connections[self.conn_label]
+        try:
+            traci.switch(self.conn_label)
+            traci.close()
+        except Exception:
+            pass 
+
+
+        # self.connection.close()
+        # del traci.main._connections[self.conn_label]
 
     def reset(self):
         # If there is a conn to close, then close it
-        if self.conn_label in traci.main._connections:
-            self._close_connection()
+        # if self.conn_label in traci.main._connections:
+        #     self._close_connection()
+
+        self._close_connection()
+
         # Start a new one
         self._open_connection()
         return self.get_state()
